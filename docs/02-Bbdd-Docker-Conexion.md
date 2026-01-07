@@ -43,12 +43,12 @@ WARN[0000] /home/joel-erreyes/docsjoel/proyectos personales/laravel-api-cheatshe
 2. Conexión con el fichero .env
 
 - Como no mapeamos puertos, MySQL no está accesible desde nuestra máquina usando -> 127.0.0.1:3306
-Entonces Laravel no puede usar nuestro host como DB_HOST.
-En su lugar, Laravel debe conectarse directamente a la IP interna del contenedor, porque:
-El contenedor sí expone el puerto 3306 dentro de la red Docker
-Nuestro host sí puede acceder a esa IP interna (mientras usemos la red bridge por defecto)
-No necesitas puertos mapeados
-Por eso el .env usa:
+- Entonces Laravel no puede usar nuestro host como DB_HOST.
+- En su lugar, Laravel debe conectarse directamente a la IP interna del contenedor, porque:
+- El contenedor sí expone el puerto 3306 dentro de la red Docker
+- Nuestro host sí puede acceder a esa IP interna (mientras usemos la red bridge por defecto)
+- No necesitas puertos mapeados
+- Por eso el .env usa:
 ```.env
 DB_CONNECTION=mysql
 DB_HOST=172.26.0.2
