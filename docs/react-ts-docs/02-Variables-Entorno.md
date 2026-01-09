@@ -11,3 +11,48 @@ joel-erreyes:~/docsjoel/proyectos personales/laravel-api-cheatsheet/frontend$ ls
 ```.env
 VITE_API_URL=http://127.0.0.1:8001/api
 ```
+3. Ahora he creado un directorio en src/environment-variables, ahi un environments.ts
+```ts
+// constante que contiene la url de la api, donde se ejecuta nuestro backend, donde estan las apis
+export const API_URL = import.meta.env.VITE_API_URL;
+console.log(API_URL);
+```
+4. Para probar que funciona, importamos la constante API_URL en el App.tsx, veremos en console la url del backend
+```tsx
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+import { API_URL } from './environment-variables/environments';
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <>
+      <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  )
+}
+
+export default App
+```
