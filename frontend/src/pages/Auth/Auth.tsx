@@ -5,16 +5,15 @@ const Auth = () => {
         <div className={styles.authContainer}>
             <div className={styles.authCard}>
                 <h1>Iniciar sesion</h1>
-                <form>
+                <form className={styles.formAuth}>
                     <div>
-                        <label>Email</label>
-                        <input type="email" id="email" placeholder="correo@ejemplo.com" />
+                        <input className={styles.inputsAuth} type="email" id="email" placeholder="correo@ejemplo.com" />
                     </div>
                     <div>
-                        <label>Contraseña</label>
-                        <input type="password" id="password" placeholder="********" />
+                        <input className={styles.inputsAuth} type="password" id="password" placeholder="********" />
                     </div>
                     <button type="submit">Entrar</button>
+                    <p>¿No tienes cuenta? <a href="#">Registrate</a></p>
                 </form>
             </div>
         </div>

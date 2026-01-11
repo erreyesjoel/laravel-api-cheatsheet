@@ -1,11 +1,28 @@
 .authContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: flex; // flex para que el contenedor se centre
+    justify-content: center; // para que se centre horizontalmente, si no no se pone en medio
+    align-items: center; // para que se centre verticalmente
+    height: 100vh; // darle altura para que se centre, no bajaba, ahora si
 }
 
-.auth-Card {
-    width: 100%;
-    max-width: 400px;
-    padding: 2rem;
+.authCard {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 1px solid;
+    border-image: linear-gradient(68.66deg, #e8e2ff 1.3%, #debcbc 50%);
+    padding: 8vh; // para que el contenedor, se haga más grande
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.formAuth {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem; // para que haya espacio entre inputs
+}
+
+.inputsAuth {
+    border-radius: 10px;
+    padding: 10px; // para que el input se haga más grande
 }
