@@ -3,6 +3,14 @@
 ```scss
 @use 'global';
 ```
+- En el archivo de global podemos definir el body por ejemplo, para que la aplicacion tenga un color de fondo predeterminado
+```scss
+body {
+    background: linear-gradient(68.66deg, #e8e2ff 1.3%, #debcbc 50%);
+    font-family: 'Inter', sans-serif;
+    color: #222;
+}
+```
 2. Importamos _main.scss en main.tsx
 ```tsx
 import { StrictMode } from 'react'
