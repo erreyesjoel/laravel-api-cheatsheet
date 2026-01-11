@@ -1,7 +1,9 @@
+import styles from './Auth.module.scss'
+
 const Auth = () => {
     return (
-        <div className="auth-container">
-            <div className="auth-carta">
+        <div className={styles.authContainer}>
+            <div className={styles.authCard}>
                 <h1>Iniciar sesion</h1>
                 <form>
                     <div>
@@ -19,4 +21,4 @@ const Auth = () => {
     )
 }
 
-export default Auth // importante para que pueda ser importado
+export default Auth
