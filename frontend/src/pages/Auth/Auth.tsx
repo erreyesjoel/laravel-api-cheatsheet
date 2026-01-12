@@ -13,6 +13,7 @@ const Auth = () => {
                     <div>
                         <input className={styles.inputsAuth} type="email" id="email" placeholder="correo@ejemplo.com" />
                     </div>
+
                     {/* Password */}
                     <div>
                         <input className={styles.inputsAuth} type="password" id="password" placeholder="********" />
@@ -21,23 +22,30 @@ const Auth = () => {
                     {/* Confirmar contraseña solo si es registro*/}
                     {isRegister && (
                         <div>
-                            <input className={styles.inputsAuth} type="text" id="name" placeholder="Confirmar contraseña" />
+                            <input className={styles.inputsAuth} type="password" id="name" placeholder="Confirmar contraseña" />
                         </div>
                     )}
-                    <button type="submit">{isRegister ? "Registrarse" : "Entrar"}</button>
+
+                    {/* Botón con clase */}
+                    <button className={styles.btnAuth} type="submit">
+                        {isRegister ? "Registrarse" : "Entrar"}
+                    </button>
+
                     {/* Cambiar entre login y registro */}
-                    <p>
+                    <p className={styles.textAuth}>
                         {isRegister ? (
                             <>
                                 ¿Ya tienes cuenta?{" "}
-                                <a onClick={() => setIsRegister(false)}>
+                                {/* Si es registro, mostramos a Inicia sesión */}
+                                <a className={styles.linkAuth} onClick={() => setIsRegister(false)}>
                                     Inicia sesión
                                 </a>
                             </>
                         ) : (
                             <>
                                 ¿No tienes cuenta?{" "}
-                                <a onClick={() => setIsRegister(true)}>
+                                {/* Si es login, mostramos a Regístrate */}
+                                <a className={styles.linkAuth} onClick={() => setIsRegister(true)}>
                                     Regístrate
                                 </a>
                             </>
