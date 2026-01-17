@@ -1,7 +1,7 @@
-import Auth from './pages/Auth/Auth'
+import AppRouter from "./router/Router";
 
 const App = () => {
-  return <Auth />
-}
+  return <AppRouter />;
+};
 
-export default App
+export default App;
