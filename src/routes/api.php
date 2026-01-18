@@ -19,3 +19,4 @@ Route::get('/test', function () {
 // Rutas de autenticación
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/refresh', [AuthController::class, 'refresh']);
+Route::post('/logout', [AuthController::class, 'logout']);
