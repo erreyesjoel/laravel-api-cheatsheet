@@ -2,6 +2,8 @@
 
 ## 1. Instalar L5‑Swagger 10
 
+**Usamos L5‑Swagger 10 porque es la única versión compatible con Laravel 10/11, swagger‑php 6, php 8.1+, atributos PHP y OpenAPI 3.1. Las versiones anteriores no sirven para proyectos modernos**
+
 ```bash
 composer require darkaonline/l5-swagger:^10.0
 ```
