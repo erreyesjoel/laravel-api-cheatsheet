@@ -5,9 +5,66 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\User;
+use OpenApi\Attributes as OA;
 
+#[OA\PathItem(path: "/api")]
 class AuthController extends Controller
 {
+    // -------------------------
+    // LOGIN
+    // -------------------------
+
+    #[OA\Post(
+        path: "/api/login",
+        summary: "Iniciar sesión",
+        tags: ["Auth"],
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                required: ["email", "password"],
+                properties: [
+                    new OA\Property(
+                        property: "email",
+                        type: "string",
+                        example: "test@example.com"
+                    ),
+                    new OA\Property(
+                        property: "password",
+                        type: "string",
+                        example: "123456"
+                    ),
+                ]
+            )
+        ),
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Login correcto",
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(
+                            property: "message",
+                            type: "string",
+                            example: "Login correcto"
+                        )
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: 401,
+                description: "Credenciales inválidas",
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(
+                            property: "error",
+                            type: "string",
+                            example: "Credenciales inválidas"
+                        )
+                    ]
+                )
+            )
+        ]
+    )]
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -50,6 +107,56 @@ class AuthController extends Controller
           ->withCookie($refreshCookie);
     }
 
+    // -------------------------
+    // REFRESH TOKEN
+    // -------------------------
+
+    #[OA\Post(
+        path: "/api/refresh",
+        summary: "Refrescar token de acceso",
+        tags: ["Auth"],
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                required: ["refresh_token"],
+                properties: [
+                    new OA\Property(
+                        property: "refresh_token",
+                        type: "string",
+                        example: "eyJhbGciOiJIUzI1..."
+                    )
+                ]
+            )
+        ),
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Token refrescado",
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(
+                            property: "message",
+                            type: "string",
+                            example: "Token refrescado"
+                        )
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: 401,
+                description: "Refresh token inválido",
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(
+                            property: "error",
+                            type: "string",
+                            example: "Refresh token inválido"
+                        )
+                    ]
+                )
+            )
+        ]
+    )]
     public function refresh(Request $request)
     {
         $refreshToken = $request->input('refresh_token');
