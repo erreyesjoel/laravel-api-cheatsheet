@@ -2,6 +2,7 @@ import styles from './Auth.module.scss'
 import { useState } from 'react'
 import { AuthService } from '../../api/services/auth.service'
 import { useNavigate } from 'react-router-dom'
+import { UserService } from '../../api/services/user.service'
 
 const Auth = () => {
     const navigate = useNavigate()
@@ -21,6 +22,8 @@ const Auth = () => {
                 const res = await AuthService.login({ email, password })
                 console.log("Login response:", res)
                 navigate("/dashboard") // redirigir a dashboard
+                // prueba para ver si coge el usuario autenticado
+                console.log("User:", await UserService.getUser())
 
             } catch (error) {
                 console.error("Error en login:", error)
@@ -31,6 +34,8 @@ const Auth = () => {
                 const res = await AuthService.register({ email, password })
                 console.log("Register response:", res)
                 navigate("/dashboard") // redirigir a dashboard
+                console.log("User:", await UserService.getUser())
+
             } catch (error) {
                 console.error("Error en registro:", error)
             }
