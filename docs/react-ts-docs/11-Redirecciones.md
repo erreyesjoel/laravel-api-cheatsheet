@@ -1,3 +1,29 @@
+# Como redirigir en React
+1. Importar useNavigate
+```tsx
+import { useNavigate } from "react-router-dom";
+```
+2. Crear el navigate dentro del componente
+```tsx
+const navigate = useNavigate();
+```
+3. Usar el navigate para redirigir
+- Ejemplo
+```tsx
+navigate("/dashboard");
+```
+
+## EJEMPLO COMPLETO EN Auth.tsx
+
+1. Importar useNavigate
+2. Crear el navigate dentro del componente
+3. Usar el navigate para redirigir
+- Sintaxis
+```tsx
+navigate("/dashboard");
+```
+- Auth.tsx completo
+```tsx
 import styles from './Auth.module.scss'
 import { useState } from 'react'
 import { AuthService } from '../../api/services/auth.service'
@@ -113,3 +139,4 @@ const Auth = () => {
 }
 
 export default Auth
+```
