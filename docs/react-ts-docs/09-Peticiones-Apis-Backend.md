@@ -1,3 +1,97 @@
+# Debemos ser ordenados y claros para hacer nuestras peticiones a las apis de backend.
+## Ejemplo de como lo estoy haciendo por ahora con una api de autenticacion (login por ahora)
+1. En nuestro archivo .env del frontend, debemos crear una variable de entorno que contenga la url de la api de backend.
+```env
+VITE_API_URL=http://127.0.0.1:8001/api
+```
+2. Crear un archivo .ts donde guardar esa variable de entorno
+- En nuestro caso src/environment-variables/environments.ts
+```ts
+// constante que contiene la url de la api, donde se ejecuta nuestro backend, donde estan las apis
+export const API_URL = import.meta.env.VITE_API_URL;
+console.log(API_URL); // SOLO PARA PROBAR EN DESARROLLO
+```
+
+3. Crear un archivo .ts, por ejemplo api.ts -> src/api/api.ts
+- Donde definimos los endpoints, get, post, delete...
+- Importamos la constante API_URL
+- Aqui no usamos credentials include porque NO en todas necesitamos compartir cookies
+```ts
+import { API_URL } from "../environment-variables/environments";
+
+export const api = {
+    get: async (endpoint: string) => {
+        const res = await fetch(`${API_URL}${endpoint}`, {
+            method: "GET",
+        });
+        return res.json();
+    },
+
+    post: async (endpoint: string, body?: any) => {
+        const res = await fetch(`${API_URL}${endpoint}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+        });
+        return res.json();
+    },
+
+    delete: async (endpoint: string) => {
+        const res = await fetch(`${API_URL}${endpoint}`, {
+            method: "DELETE",
+        });
+        return res.json();
+    },
+};
+```
+4. Creamos dentro de src/api/services/ un archivo .ts, por ejemplo auth.service.ts
+- Donde definimos los metodos de autenticacion (o cualquier metodo dependiendo de la api o lo que que sea que queramos usar)
+- auth.service.ts
+```ts
+import { API_URL } from "../../environment-variables/environments";
+
+interface Auth {
+    email: string;
+    password: string;
+}
+
+export const AuthService = {
+    login: async (auth: Auth) => {
+        console.log("Intentando login con email:", auth.email);
+        const res = await fetch(`${API_URL}/login`, {
+            method: "POST",
+            credentials: "include", // para las cookies, si no, no se comparten
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(auth),
+        });
+
+        return res.json();
+    },
+
+    register: async (auth: Auth) => {
+        const res = await fetch(`${API_URL}/register`, {
+            method: "POST",
+            credentials: "include", // para las cookies, si no, no se comparten
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(auth),
+        });
+
+        return res.json();
+    },
+
+    logout: async () => {
+        const res = await fetch(`${API_URL}/logout`, {
+            method: "POST",
+            credentials: "include", // para las cookies, si no, no se comparten
+        });
+
+        return res.json();
+    },
+};
+```
+
+5. Ahora, "unirlo" al .tsx (Auth.tsx en nuestro caso)
+```tsx
 import styles from './Auth.module.scss'
 import { useState } from 'react'
 import { AuthService } from '../../api/services/auth.service'
@@ -108,3 +202,6 @@ const Auth = () => {
 }
 
 export default Auth
+```
+
+
