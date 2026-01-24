@@ -244,6 +244,66 @@ class AuthController extends Controller
         ], 400);
     }
 }
+    #[OA\Post(
+        path: "/api/register",
+        summary: "Registrar un nuevo usuario",
+        tags: ["Auth"],
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                required: ["email", "password"],
+                properties: [
+                    new OA\Property(
+                        property: "email",
+                        type: "string",
+                        example: "nuevo@example.com"
+                    ),
+                    new OA\Property(
+                        property: "password",
+                        type: "string",
+                        example: "12345678",
+                        description: "Mínimo 8 caracteres"
+                    ),
+                ]
+            )
+        ),
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Usuario registrado correctamente",
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(
+                            property: "message",
+                            type: "string",
+                            example: "Usuario registrado correctamente"
+                        )
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: 400,
+                description: "Error de validación",
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(
+                            property: "message",
+                            type: "string",
+                            example: "The email has already been taken."
+                        ),
+                        new OA\Property(
+                            property: "errors",
+                            type: "object",
+                            example: [
+                                "email" => ["The email has already been taken."]
+                            ]
+                        )
+                    ]
+                )
+            )
+        ]
+    )]
+    
     public function register(Request $request)
     {
         $request->validate([
