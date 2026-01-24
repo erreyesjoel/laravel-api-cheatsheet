@@ -204,4 +204,4 @@ const Auth = () => {
 export default Auth
 ```
 
-
+**Con todo eso, ya tendremos login y register funcionando perfectamente, conexion apis backend y frontend**
