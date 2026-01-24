@@ -210,4 +210,60 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })->create();
 ```
+10. Registro
+- AuthController.php
+- Añadimos el metodo
+```php
+   public function register(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8'
+        ]);
 
+        $user = User::create([
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        // Generar tokens igual que en login
+        $accessToken = JWTAuth::fromUser($user);
+
+        $accessCookie = cookie(
+            'access_token',
+            $accessToken,
+            config('jwt.ttl'),
+            null,
+            null,
+            true,
+            true,
+            false,
+            'Lax'
+        );
+
+        $refreshToken = JWTAuth::claims([
+            'exp' => now()->addDays(7)->timestamp
+        ])->fromUser($user);
+
+        $refreshCookie = cookie(
+            'refresh_token',
+            $refreshToken,
+            60 * 24 * 7,
+            null,
+            null,
+            true,
+            true,
+            false,
+            'Lax'
+        );
+
+        return response()->json([
+            'message' => 'Usuario registrado correctamente'
+        ])->withCookie($accessCookie)
+        ->withCookie($refreshCookie);
+    }
+```
+- api.php
+```php
+Route::post('/register', [AuthController::class, 'register']);
+```
