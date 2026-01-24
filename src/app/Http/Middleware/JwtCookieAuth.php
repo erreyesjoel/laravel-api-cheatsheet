@@ -4,17 +4,27 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JwtCookieAuth
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
+        try {
+            // Leer token desde cookie
+            $token = $request->cookie('access_token');
+
+            if (!$token) {
+                return response()->json(['error' => 'Token no encontrado'], 401);
+            }
+
+            // Validar token y autenticar usuario
+            JWTAuth::setToken($token)->authenticate();
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'No autenticado'], 401);
+        }
+
         return $next($request);
     }
 }

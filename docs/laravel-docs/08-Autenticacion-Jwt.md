@@ -146,7 +146,7 @@ Route::get('/perfil', function () {
 })->middleware(['jwtcookieauth', 'jwt.auth'])
 ```
 
-8. Middleware personalizado, para poder usar el middleware jwt.auth en las rutas que requieran autenticacion
+8. Middleware personalizado, para poder usar el middleware jwt.auth en las rutas que requieran autenticacion, tambien nos servira por si hacemos una api que devuelva el usuario autenticado
 ```bash
 php artisan make:middleware JwtCookieAuth
 ```
@@ -158,25 +158,27 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
-/**
- * Este middleware es necesario porque el paquete JWTAuth de Laravel
- * espera el token JWT en el header Authorization.
- *
- * Sin embargo, en este proyecto el token se guarda en una cookie HTTP Only ('access_token').
- *
- * El middleware copia el token de la cookie al header Authorization antes de que actúe jwt.auth,
- * permitiendo así que las rutas protegidas funcionen correctamente con autenticación por cookie.
- */
 class JwtCookieAuth
 {
     public function handle(Request $request, Closure $next)
     {
-        // Si existe la cookie 'access_token', la ponemos en el header Authorization
-        if ($request->hasCookie('access_token')) {
+        try {
+            // Leer token desde cookie
             $token = $request->cookie('access_token');
-            $request->headers->set('Authorization', 'Bearer ' . $token);
+
+            if (!$token) {
+                return response()->json(['error' => 'Token no encontrado'], 401);
+            }
+
+            // Validar token y autenticar usuario
+            JWTAuth::setToken($token)->authenticate();
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'No autenticado'], 401);
         }
+
         return $next($request);
     }
 }
