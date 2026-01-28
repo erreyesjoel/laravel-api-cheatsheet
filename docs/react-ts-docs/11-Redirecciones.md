@@ -1,8 +1,33 @@
+# Como redirigir en React
+1. Importar useNavigate
+```tsx
+import { useNavigate } from "react-router-dom";
+```
+2. Crear el navigate dentro del componente
+```tsx
+const navigate = useNavigate();
+```
+3. Usar el navigate para redirigir
+- Ejemplo
+```tsx
+navigate("/dashboard");
+```
+
+## EJEMPLO COMPLETO EN Auth.tsx
+
+1. Importar useNavigate
+2. Crear el navigate dentro del componente
+3. Usar el navigate para redirigir
+- Sintaxis
+```tsx
+navigate("/dashboard");
+```
+- Auth.tsx completo
+```tsx
 import styles from './Auth.module.scss'
 import { useState } from 'react'
 import { AuthService } from '../../api/services/auth.service'
 import { useNavigate } from 'react-router-dom'
-import { UserService } from '../../api/services/user.service'
 
 const Auth = () => {
     const navigate = useNavigate()
@@ -22,8 +47,6 @@ const Auth = () => {
                 const res = await AuthService.login({ email, password })
                 console.log("Login response:", res)
                 navigate("/dashboard") // redirigir a dashboard
-                // prueba para ver si coge el usuario autenticado
-                console.log("User:", await UserService.getUser())
 
             } catch (error) {
                 console.error("Error en login:", error)
@@ -34,8 +57,6 @@ const Auth = () => {
                 const res = await AuthService.register({ email, password })
                 console.log("Register response:", res)
                 navigate("/dashboard") // redirigir a dashboard
-                console.log("User:", await UserService.getUser())
-
             } catch (error) {
                 console.error("Error en registro:", error)
             }
@@ -118,3 +139,4 @@ const Auth = () => {
 }
 
 export default Auth
+```

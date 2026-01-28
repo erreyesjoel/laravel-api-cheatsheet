@@ -6,8 +6,8 @@ use App\Http\Controllers\AuthController;
 
 
 Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+    return auth()->user();
+})->middleware('jwtcookieauth');
 // api de prueba GET
 Route::get('/test', function () {
     return response()->json([
