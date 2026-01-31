@@ -17,7 +17,6 @@ const Header = () => {
 
             <nav className="nav-links">
                 <a href="/">Inicio</a>
-                <a href="/dashboard">Dashboard</a>
                 <a href="/docs">Docs</a>
             </nav>
         </header>
