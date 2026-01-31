@@ -26,6 +26,30 @@ createRoot(document.getElementById('root')!).render(
 ```
 **Los @use dependen de la ubicacion del archivo .scss**
 
+# Diferencia: Global (Header.scss) vs Módulo (Header.module.scss)
+
+Es crucial entender cuándo usar uno u otro para evitar conflictos de estilos.
+
+## 1. Global (`Header.scss`)
+Si creas un archivo `.scss` normal (sin `.module`) e lo importas (`import './Header.scss'`), todas las clases se vuelven **globales**.
+
+- **Comportamiento:**  
+  Si defines `.boton` en `Header.scss` y también `.boton` en `Footer.scss`, ambos chocarán. El último que se cargue sobrescribirá al primero.
+- **Cuándo usarlo:**  
+  - Para estilos base (`body`, `h1`).
+  - Para reescribir estilos de librerías externas que esperan clases globales.
+  - **NO** recomendado para componentes individuales.
+
+## 2. Módulo (`Header.module.scss`)
+Si usas `.module.scss`, React (Vite/Webpack) renombra las clases automáticamente para hacerlas únicas.
+
+- **Comportamiento:**  
+  Una clase `.boton` en `Header.module.scss` se compila a algo como `Header_boton__xyz123`.
+  Puedes tener `.boton` en `Header` y `.boton` en `Footer` y **serán estilos completamente diferentes**.
+- **Cuándo usarlo:**  
+  - **SIEMPRE** para componentes de React (Auth, Header, Sidebar, etc.) para encapsular sus estilos.
+
+
 # Modulos
 - Un modulo como Auth.module.scss, no se importa en _main.scss
 - Porque mezclar estilos globales y locales puede causar problemas de sobrecarga, encapsulamiento y mantenimiento
