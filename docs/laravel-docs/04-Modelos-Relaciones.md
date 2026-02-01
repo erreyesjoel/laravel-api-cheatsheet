@@ -45,6 +45,22 @@ php artisan make:model Task -mc --api
 php artisan make:model Task -mfs -c
 ```
 
+### 🟧 Asignación Masiva ($fillable)
+- Para poder guardar datos usando métodos como `create()` o `update()` en una sola línea, necesitamos proteger el modelo.
+- Definimos qué campos se pueden rellenar masivamente en la propiedad `$fillable`.
+
+```php
+protected $fillable = [
+    'title',
+    'description',
+    'status',
+    'priority',
+    'due_date',
+    'user_id'
+];
+```
+- **Importante:** Nunca pongas datos sensibles o IDs autoincrementales que no deban ser tocados manualmente.
+
 ### Relaciones entre tablas (migraciones) FK
 - Como en este caso entre Tasks y Users, Tasks es la N (tabla hija), ponemos la foreign key en la migracion de tasks
 ```php
