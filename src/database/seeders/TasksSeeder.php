@@ -14,14 +14,15 @@ class TasksSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Buscamos el usuario por su email (Más seguro y explícito que ID 1)
+        // 1. Buscadmos el usuario por su email (Más seguro y explícito que ID 1)
         $user = User::where('email', 'joel@erreyes.com')->first();
 
         // 2. Fallback: Si no existe (ej. DB vacía), lo creamos
         if (!$user) {
-            $user = User::factory()->create([
+            $user = User::create([
                 'name' => 'Joel Erreyes',
                 'email' => 'joel@erreyes.com',
+                'password' => 'password',
             ]);
         }
 
@@ -34,5 +35,9 @@ class TasksSeeder extends Seeder
             // Usamos el ID del usuario real en lugar de '1' a secas
             'user_id' => $user->id,
         ]);
+    }
+
+    public function tareasInteractivas(){
+        
     }
 }

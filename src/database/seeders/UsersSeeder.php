@@ -18,5 +18,59 @@ class UsersSeeder extends Seeder
             'email' => 'joel@erreyes.com',
             'password' => Hash::make('password'),
         ]);
+
+        User::create([
+            'name' => 'Joel Erreyes 2',
+            'email' => 'joel2@erreyes.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+            'name' => 'Joel Erreyes 3',
+            'email' => 'joel3@erreyes.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+            'name' => 'Joel Erreyes 4',
+            'email' => 'joel4@erreyes.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+            'name' => 'Joel Erreyes 5',
+            'email' => 'joel5@erreyes.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+            'name' => 'Joel Erreyes 6',
+            'email' => 'joel6@erreyes.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+            'name' => 'Joel Erreyes 7',
+            'email' => 'joel7@erreyes.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+            'name' => 'Joel Erreyes 8',
+            'email' => 'joel8@erreyes.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+            'name' => 'Joel Erreyes 9',
+            'email' => 'joel9@erreyes.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+            'name' => 'Joel Erreyes 10',
+            'email' => 'joel10@erreyes.com',
+            'password' => Hash::make('password'),
+        ]);
     }
 }
