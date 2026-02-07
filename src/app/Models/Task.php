@@ -11,4 +11,14 @@ class Task extends Model
     {
     return $this->belongsTo(User::class);    
     }
+
+    // fillable para que laravel sepa que campos se pueden insertar
+    protected $fillable = [
+        'title',
+        'description',
+        'status',
+        'priority',
+        'due_date',
+        'user_id',
+    ];
 }
